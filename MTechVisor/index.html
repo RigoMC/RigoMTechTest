@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MTech Technical Test</title>
+    <!-- Tailwind CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="EmployeeService.js"></script>
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="bg-white shadow-lg">
+      <div class="container mx-auto px-4">
+        <nav class="flex items-center justify-between py-4">
+          <h1 class="text-xl font-bold">MTech Technical Test</h1>
+        </nav>
+      </div>
+    </div>
+    <div class="container mx-auto px-4 mt-4 h-96 overflow-auto">
+      <div class="flex items-center space-x-4 mt-4">
+        <input
+          type="text"
+          placeholder="Enter search term"
+          class="border border-gray-300 rounded-lg px-4 py-2 w-64"
+          id="searchTerm"
+        />
+        <button
+          class="bg-blue-500 text-white px-4 py-2 rounded-lg"
+          onclick="search()"
+        >
+          Search
+        </button>
+        <button
+          class="bg-gray-500 text-white px-4 py-2 rounded-lg"
+          onclick="reloadTable()"
+        >
+          Clean
+        </button>
+      </div>
+
+      <div class="flex items-center space-x-4 mt-5">
+        <button
+          class="bg-green-500 text-white px-4 py-2 rounded-lg w-1/5"
+          onclick="openAddModal()"
+        >
+          Add
+        </button>
+      </div>
+
+      <table class="table-auto w-full mt-5">
+        <thead>
+          <tr>
+            <th class="border px-4 py-2">ID</th>
+            <th class="border px-4 py-2">Name</th>
+            <th class="border px-4 py-2">LastName</th>
+            <th class="border px-4 py-2">RFC</th>
+            <th class="border px-4 py-2">Born Date</th>
+            <th class="border px-4 py-2">Status</th>
+            <td class="border px-4 py-2"></td>
+            <td class="border px-4 py-2"></td>
+          </tr>
+        </thead>
+        <tbody id="employeeTableBody">
+          <!-- Table rows -->
+        </tbody>
+      </table>
+
+      <!-- Modal for adding or editing an employee -->
+      <div
+        class="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-gray-800 bg-opacity-75"
+        style="display: none"
+        id="modal"
+      >
+        <div class="bg-white p-6 rounded-lg">
+          <h2 class="text-lg font-bold mb-4">Employee</h2>
+          <form id="employeeForm" class="space-y-4">
+            <input type="hidden" id="employeeId" />
+            <div>
+              <label for="name" class="block">Name:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="border border-gray-300 rounded-lg px-4 py-2 w-full"
+              />
+            </div>
+            <div>
+              <label for="lastName" class="block">Last Name:</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                class="border border-gray-300 rounded-lg px-4 py-2 w-full"
+              />
+            </div>
+            <div>
+              <label for="rfc" class="block">RFC:</label>
+              <input
+                type="text"
+                id="rfc"
+                name="rfc"
+                class="border border-gray-300 rounded-lg px-4 py-2 w-full"
+              />
+            </div>
+            <div>
+              <label for="bornDate" class="block">Born Date:</label>
+              <input
+                type="date"
+                id="bornDate"
+                name="bornDate"
+                class="border border-gray-300 rounded-lg px-4 py-2 w-full"
+              />
+            </div>
+            <div>
+              <label for="status" class="block">Status:</label>
+              <select
+                id="status"
+                name="status"
+                class="border border-gray-300 rounded-lg px-4 py-2 w-full"
+              >
+                <option value="0">Not Set</option>
+                <option value="1">Active</option>
+                <option value="2">Inactive</option>
+              </select>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full"
+                onclick="saveEmployee()"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                class="bg-gray-500 text-white px-4 py-2 rounded-lg w-full mt-4"
+                onclick="closeModal()"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="EmployeeController.js"></script>
+    <script>
+      window.onload = async function () {
+        await reloadTable();
+      };
+    </script>
+  </body>
+</html>
