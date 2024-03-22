@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using MTechTestAPI.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+var MyAllowSpecificOrigins = "http://localhost";
 
 builder.Services.AddControllers();
 
@@ -14,6 +16,15 @@ builder.Services.AddDbContext<MTechTestMYSQL>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost").AllowAnyHeader().AllowAnyMethod();
+                      });
+});
+
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
@@ -24,6 +35,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.MapControllers();
 

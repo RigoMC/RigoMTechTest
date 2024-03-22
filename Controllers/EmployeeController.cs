@@ -102,8 +102,8 @@ namespace MTechTestAPI.Controllers
             return new JsonResult(Ok(result));
         }
 
-        [HttpGet("/search/{name}")]
-        public JsonResult GetAllEmployeesWhoHave(string name)
+        [HttpGet("{name}")]
+        public JsonResult Search(string name)
         {
             var result = _context.GetEmployeesWhoHave(name);
             return new JsonResult(Ok(result));
